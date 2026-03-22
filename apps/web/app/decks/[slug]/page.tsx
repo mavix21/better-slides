@@ -24,7 +24,7 @@ export default async function DeckPage({
 
   return (
     <main className="min-h-svh bg-background text-foreground">
-      <div className="max--7xl mx-auto flex w-full flex-col gap-8 px-6 py-8 md:px-10 md:py-10">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-8 md:px-10 md:py-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="max-w-2xl space-y-3">
             <Link
