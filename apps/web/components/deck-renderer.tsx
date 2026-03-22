@@ -1,4 +1,5 @@
-import SlideDeck, { type SlideDeckMode } from "@/components/slide-deck";
+import PromptToProductionSaltaDeck from "@/components/decks/prompt-to-production-salta";
+import type { SlideDeckMode } from "@/components/slides/slide-deck";
 
 export function DeckRenderer({
   slug,
@@ -8,7 +9,7 @@ export function DeckRenderer({
   mode?: SlideDeckMode;
 }) {
   if (slug === "prompt-to-production-salta") {
-    return <SlideDeck mode={mode} />;
+    return <PromptToProductionSaltaDeck mode={mode} />;
   }
 
   return null;
