@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext } from "react";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import Image from "next/image";
 import { cn } from "@workspace/ui/lib/utils";
 import {
@@ -1769,6 +1769,8 @@ const slides: Array<() => React.JSX.Element> = [
   Slide16,
 ];
 
+const NAV_AUTO_HIDE_DELAY_MS = 2500;
+
 export type SlideDeckMode = "preview" | "present";
 
 type SlideDeckProps = {
@@ -1778,14 +1780,39 @@ type SlideDeckProps = {
 export default function SlideDeck({ mode = "present" }: SlideDeckProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [lang, setLang] = useState<Language>("es");
+  const [isFullscreenPresentation, setIsFullscreenPresentation] = useState(
+    () => typeof document !== "undefined" && Boolean(document.fullscreenElement)
+  );
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const hideNavTimeoutRef = useRef<number | null>(null);
 
   const isPresentMode = mode === "present";
+  const shouldAutoHideNav = isPresentMode && isFullscreenPresentation;
 
   const goToSlide = useCallback((index: number) => {
     if (index >= 0 && index < slides.length) {
       setCurrentSlide(index);
     }
   }, []);
+
+  const clearHideNavTimeout = useCallback(() => {
+    if (hideNavTimeoutRef.current !== null) {
+      window.clearTimeout(hideNavTimeoutRef.current);
+      hideNavTimeoutRef.current = null;
+    }
+  }, []);
+
+  const scheduleHideNav = useCallback(() => {
+    clearHideNavTimeout();
+
+    if (!shouldAutoHideNav) {
+      return;
+    }
+
+    hideNavTimeoutRef.current = window.setTimeout(() => {
+      setIsNavVisible(false);
+    }, NAV_AUTO_HIDE_DELAY_MS);
+  }, [clearHideNavTimeout, shouldAutoHideNav]);
 
   const nextSlide = useCallback(() => {
     goToSlide(currentSlide + 1);
@@ -1809,6 +1836,65 @@ export default function SlideDeck({ mode = "present" }: SlideDeckProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextSlide, prevSlide]);
 
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    const updateFullscreenState = () => {
+      const isFullscreen = Boolean(document.fullscreenElement);
+      setIsFullscreenPresentation(isFullscreen);
+      clearHideNavTimeout();
+
+      if (isFullscreen) {
+        setIsNavVisible(true);
+        hideNavTimeoutRef.current = window.setTimeout(() => {
+          setIsNavVisible(false);
+        }, NAV_AUTO_HIDE_DELAY_MS);
+        return;
+      }
+
+      setIsNavVisible(true);
+    };
+
+    document.addEventListener("fullscreenchange", updateFullscreenState);
+
+    return () => {
+      clearHideNavTimeout();
+      document.removeEventListener("fullscreenchange", updateFullscreenState);
+    };
+  }, [clearHideNavTimeout]);
+
+  useEffect(() => {
+    if (!shouldAutoHideNav) {
+      clearHideNavTimeout();
+      return;
+    }
+
+    scheduleHideNav();
+
+    return () => {
+      clearHideNavTimeout();
+    };
+  }, [clearHideNavTimeout, scheduleHideNav, shouldAutoHideNav]);
+
+  const handleNavAreaMouseEnter = useCallback(() => {
+    if (!shouldAutoHideNav) {
+      return;
+    }
+
+    clearHideNavTimeout();
+    setIsNavVisible(true);
+  }, [clearHideNavTimeout, shouldAutoHideNav]);
+
+  const handleNavAreaMouseLeave = useCallback(() => {
+    if (!shouldAutoHideNav) {
+      return;
+    }
+
+    scheduleHideNav();
+  }, [scheduleHideNav, shouldAutoHideNav]);
+
   const CurrentSlideComponent = slides[currentSlide]! ?? slides[0];
 
   return (
@@ -1831,47 +1917,60 @@ export default function SlideDeck({ mode = "present" }: SlideDeckProps) {
         </div>
 
         {/* Navigation */}
-        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 md:bottom-8">
-          {/* Slide Counter - Mobile centered above dots */}
-          <div className="font-mono text-xs text-white/40 md:hidden">
-            {String(currentSlide + 1).padStart(2, "0")} /{" "}
-            {String(slides.length).padStart(2, "0")}
-          </div>
-
-          <div className="flex items-center gap-3 md:gap-4">
-            <button
-              onClick={prevSlide}
-              disabled={currentSlide === 0}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30 md:h-10 md:w-10"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
-            </button>
-
-            {/* Dots - hidden on mobile, shown on tablet+ */}
-            <div className="hidden items-center gap-2 md:flex">
-              {slides.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => goToSlide(i)}
-                  className={`h-2 w-2 rounded-full transition-all ${
-                    i === currentSlide
-                      ? "w-6 bg-white"
-                      : "bg-white/30 hover:bg-white/50"
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
-              ))}
+        <div
+          className="absolute inset-x-0 bottom-0 flex justify-center pt-8 pb-6 md:pb-8"
+          onMouseEnter={handleNavAreaMouseEnter}
+          onMouseLeave={handleNavAreaMouseLeave}
+        >
+          <div
+            className={cn(
+              "flex flex-col items-center gap-3 transition-opacity duration-200",
+              shouldAutoHideNav &&
+                !isNavVisible &&
+                "pointer-events-none opacity-0"
+            )}
+          >
+            {/* Slide Counter - Mobile centered above dots */}
+            <div className="font-mono text-xs text-white/40 md:hidden">
+              {String(currentSlide + 1).padStart(2, "0")} /{" "}
+              {String(slides.length).padStart(2, "0")}
             </div>
 
-            <button
-              onClick={nextSlide}
-              disabled={currentSlide === slides.length - 1}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30 md:h-10 md:w-10"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
-            </button>
+            <div className="flex items-center gap-3 md:gap-4">
+              <button
+                onClick={prevSlide}
+                disabled={currentSlide === 0}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30 md:h-10 md:w-10"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
+              </button>
+
+              {/* Dots - hidden on mobile, shown on tablet+ */}
+              <div className="hidden items-center gap-2 md:flex">
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goToSlide(i)}
+                    className={`h-2 w-2 rounded-full transition-all ${
+                      i === currentSlide
+                        ? "w-6 bg-white"
+                        : "bg-white/30 hover:bg-white/50"
+                    }`}
+                    aria-label={`Go to slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextSlide}
+                disabled={currentSlide === slides.length - 1}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30 md:h-10 md:w-10"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
+              </button>
+            </div>
           </div>
         </div>
 

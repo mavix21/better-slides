@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Presentation, Sparkles } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
 
 import { DeckRenderer } from "@/components/deck-renderer";
+import { PresentButton } from "@/components/present-button";
 import { decks, getDeckBySlug } from "@/lib/decks";
 
 export function generateStaticParams() {
@@ -23,7 +24,7 @@ export default async function DeckPage({
 
   return (
     <main className="min-h-svh bg-background text-foreground">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-8 md:px-10 md:py-10">
+      <div className="max--7xl mx-auto flex w-full flex-col gap-8 px-6 py-8 md:px-10 md:py-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="max-w-2xl space-y-3">
             <Link
@@ -51,13 +52,7 @@ export default async function DeckPage({
               <Sparkles className="h-4 w-4" />
               {deck.slideCount} slides
             </div>
-            <Link
-              href={`/decks/${deck.slug}/present`}
-              className="inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
-            >
-              <Presentation className="h-4 w-4" />
-              Present
-            </Link>
+            <PresentButton href={`/decks/${deck.slug}/present`} />
           </div>
         </div>
 
