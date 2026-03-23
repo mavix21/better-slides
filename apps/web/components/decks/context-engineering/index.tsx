@@ -8,9 +8,9 @@ import {
   LanguageToggle,
   useTranslation,
 } from "@/components/slides/slide-language";
-import { SlideQRCode } from "@/components/slides/slide-qr-code";
 import { translations, type Translations } from "./translations";
 
+import { OpeningSlide } from "./slides/opening";
 import { WhatIsAgentSlide } from "./slides/what-is-agent";
 import { AgentLoopSlide } from "./slides/agent-loop";
 import { WhyFailSlide } from "./slides/why-fail";
@@ -23,6 +23,7 @@ import { BenefitsChallengesSlide } from "./slides/benefits-challenges";
 import { GetStartedSlide } from "./slides/get-started";
 
 const slides: React.ComponentType[] = [
+  OpeningSlide,
   WhatIsAgentSlide,
   AgentLoopSlide,
   WhyFailSlide,
@@ -47,7 +48,6 @@ function DeckInner({ mode }: { mode: SlideDeckMode }) {
       <Slide.Root>
         <Slide.Overlay>
           <LanguageToggle />
-          <SlideQRCode hide={mode !== "present"} label={t.scanMe[lang]} />
         </Slide.Overlay>
 
         <Slide.Content slides={slides} />
