@@ -210,7 +210,7 @@ function SlideRoot({ children, className }: SlideRootProps) {
     <div
       className={cn(
         "dark relative w-full overflow-hidden bg-background font-sans text-foreground select-none",
-        isPresentMode ? "h-screen" : "h-full min-h-full",
+        isPresentMode ? "h-screen p-4 md:p-6 lg:p-8" : "h-full min-h-full",
         className
       )}
     >
