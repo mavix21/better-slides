@@ -11,8 +11,10 @@ import {
 import { translations, type Translations } from "./translations";
 
 import { OpeningSlide } from "./slides/opening";
+import { OverviewSlide } from "./slides/overview";
 import { WhatIsAgentSlide } from "./slides/what-is-agent";
 import { AgentLoopSlide } from "./slides/agent-loop";
+import { ContextWindowSlide } from "./slides/context-window";
 import { WhyFailSlide } from "./slides/why-fail";
 import { PromptToCESlide } from "./slides/prompt-to-ce";
 import { WhatIsCESlide } from "./slides/what-is-ce";
@@ -24,8 +26,10 @@ import { GetStartedSlide } from "./slides/get-started";
 
 const slides: React.ComponentType[] = [
   OpeningSlide,
+  OverviewSlide,
   WhatIsAgentSlide,
   AgentLoopSlide,
+  ContextWindowSlide,
   WhyFailSlide,
   PromptToCESlide,
   WhatIsCESlide,

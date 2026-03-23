@@ -2,12 +2,37 @@ export const translations = {
   scanMe: { es: "Escaneame", en: "Scan me" },
   nav: { es: "← → para navegar", en: "← → to navigate" },
 
+  // Slide 0: Opening
+  opening: {
+    title: { es: "Context Engineering", en: "Context Engineering" },
+    subtitle: {
+      es: "Diseñar y controlar todo lo que un LLM ve antes de generar un solo token",
+      en: "Designing and controlling everything an LLM sees before it generates a single token",
+    },
+  },
+
   // Slide 1: What is an Agent?
   whatIsAgent: {
     title: { es: "¿Qué es un Agente?", en: "What is an Agent?" },
     desc: {
       es: "Un LLM que puede tomar acciones en un loop hasta completar una tarea.",
       en: "An LLM that can take actions in a loop until a task is complete.",
+    },
+    item1: {
+      es: "LLM - Un modelo de lenguaje que puede razonar y tomar decisiones",
+      en: "LLM - A language model that can reason and make decisions",
+    },
+    item2: {
+      es: "Acciones - Capacidad de hacer cosas (call tools, escribir archivos, llamadas a API)",
+      en: "Actions - The ability to do things (call tools, write files, make API calls)",
+    },
+    item3: {
+      es: "Loop - Sigue trabajando hasta terminar, no solo da una respuesta",
+      en: "Loop - Keeps going until the job is done, not just one response",
+    },
+    closingQuote: {
+      es: '"Un chatbot responde una vez. Un agente sigue trabajando."',
+      en: '"A chatbot responds once. An agent keeps working."',
     },
     llm: { es: "LLM", en: "LLM" },
     action: { es: "Acción / Tool", en: "Action / Tool" },
@@ -200,8 +225,8 @@ export const translations = {
     title: { es: "Beneficios y Desafíos", en: "Benefits & Challenges" },
     benefitsTitle: { es: "Beneficios", en: "Benefits" },
     benefit1: {
-      es: "60–80% más confiable en tareas multi-paso",
-      en: "60–80% more reliable multi-step tasks",
+      es: "60-80% más confiable en tareas multi-paso",
+      en: "60-80% more reliable multi-step tasks",
     },
     benefit2: {
       es: "Menor costo y latencia (86% reportado en algunos casos)",
@@ -230,19 +255,19 @@ export const translations = {
   getStarted: {
     title: { es: "Cómo Empezar Hoy", en: "How to Start Today" },
     step1: {
-      es: "Agregá un CLAUDE.md o archivo de reglas a tu proyecto",
+      es: "Agrega un CLAUDE.md o archivo de reglas a tu proyecto",
       en: "Add a CLAUDE.md or rules file to your project",
     },
     step2: {
-      es: "Experimentá con skills y herramientas just-in-time",
+      es: "Experimenta con skills y herramientas just-in-time",
       en: "Experiment with skills & just-in-time tools",
     },
     step3: {
-      es: "Implementá una estrategia de compactación o memory notes",
+      es: "Implementa una estrategia de compactación o memory notes",
       en: "Implement one compaction or memory note strategy",
     },
     step4: {
-      es: "Medí la tasa de éxito del loop antes/después",
+      es: "Mide la tasa de éxito del loop antes/después",
       en: "Measure loop success rate before/after",
     },
     future: {
