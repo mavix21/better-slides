@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Presentation, Sparkles } from "lucide-react";
 
 import { decks } from "@/lib/decks";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Page() {
   return (
@@ -24,9 +25,12 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm text-muted-foreground">
-            <Presentation className="h-4 w-4" />
-            {decks.length} {decks.length === 1 ? "deck" : "decks"}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm text-muted-foreground">
+              <Presentation className="h-4 w-4" />
+              {decks.length} {decks.length === 1 ? "deck" : "decks"}
+            </div>
           </div>
         </section>
 
