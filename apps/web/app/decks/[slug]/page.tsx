@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Sparkles } from "lucide-react";
@@ -8,6 +9,34 @@ import { decks, getDeckBySlug } from "@/lib/decks";
 
 export function generateStaticParams() {
   return decks.map((deck) => ({ slug: deck.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const deck = getDeckBySlug(slug);
+
+  if (!deck) {
+    return { title: "Deck not found" };
+  }
+
+  return {
+    title: deck.title,
+    description: deck.description,
+    openGraph: {
+      title: deck.title,
+      description: deck.description,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: deck.title,
+      description: deck.description,
+    },
+  };
 }
 
 export default async function DeckPage({

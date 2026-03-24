@@ -38,9 +38,9 @@ export default function Page() {
           {decks.map((deck) => (
             <article
               key={deck.slug}
-              className="group flex flex-col rounded-[28px] border border-border bg-card p-6 shadow-sm transition-colors hover:border-foreground/20"
+              className="group flex flex-col rounded-xl border border-border bg-card p-4 shadow-sm transition-colors hover:border-foreground/20"
             >
-              <div className="mb-6 aspect-video overflow-hidden rounded-[20px] border border-border bg-black">
+              <div className="mb-6 aspect-video overflow-hidden rounded-xl border border-border bg-black">
                 <div className="flex h-full items-end bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.2),transparent_40%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5">
                   <div className="space-y-2 text-white">
                     <p className="text-xs font-medium tracking-[0.2em] text-white/60 uppercase">
