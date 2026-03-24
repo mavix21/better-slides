@@ -165,116 +165,209 @@ export const translations = {
     },
   },
 
-  // Slide 7: CE in Coding Agents
-  codingAgents: {
+  // Slide 7: The Agent Harness (intro)
+  agentHarness: {
     title: {
-      es: "Context Engineering en Coding Agents",
-      en: "Context Engineering in Coding Agents",
+      es: "El Agent Harness",
+      en: "The Agent Harness",
     },
-    subtitle: { es: "Ejemplos del mundo real", en: "Real-world examples" },
-    claudeCode: {
-      es: "CLAUDE.md + Rules + Skills + Hooks",
-      en: "CLAUDE.md + Rules + Skills + Hooks",
+    subtitle: {
+      es: "Un conjunto estructurado de controles que define qué sabe el agente, qué puede hacer, y cómo se valida su trabajo. Hay cuatro palancas clave que necesitas dominar.",
+      en: "A structured set of controls that shape what the agent knows, what it can do, and how its work gets validated. There are four key levers you need to master.",
     },
-    cursorWindsurf: {
-      es: "archivos .rules + skills",
-      en: ".rules files + skills",
+    lever1: { es: "Custom Rules", en: "Custom Rules" },
+    lever2: { es: "MCP Servers", en: "MCP Servers" },
+    lever3: { es: "Skills", en: "Skills" },
+    lever4: { es: "Spec Driven Development", en: "Spec Driven Development" },
+  },
+
+  // Slide 8: Custom Rules
+  customRules: {
+    title: { es: "Custom Rules", en: "Custom Rules" },
+    subtitle: {
+      es: "La palanca más accesible y donde la mayoría de equipos deberían empezar. Archivos que se inyectan automáticamente en el contexto del agente al inicio de cada interacción.",
+      en: "The most accessible lever and where most teams should start. Files that get automatically injected into the agent's context at the start of every interaction.",
     },
-    langchain: {
-      es: "Middleware + contexto dinámico",
-      en: "Middleware + dynamic context",
+    doTitle: { es: "Qué incluir", en: "What to include" },
+    do1: {
+      es: "Tu stack técnico y patrones de arquitectura",
+      en: "Your project's tech stack and architecture patterns",
     },
-    result: {
-      es: "Resultado: Código listo para producción en grandes codebases",
-      en: "Result: Production-ready code on large codebases",
+    do2: {
+      es: "Convenciones de naming y preferencias de estilo de código",
+      en: "Naming conventions and code style preferences",
+    },
+    do3: {
+      es: "Filosofía de testing y pitfalls comunes del codebase",
+      en: "Testing philosophy and common codebase pitfalls",
+    },
+    do4: {
+      es: "Anti-patrones que has visto producir al agente",
+      en: "Anti-patterns you've seen the agent produce",
+    },
+    dontTitle: { es: "Qué NO incluir", en: "What NOT to include" },
+    dont1: {
+      es: "Documentación completa de APIs (demasiado largo, desperdicia contexto)",
+      en: "Entire API documentation (too long, wastes context)",
+    },
+    dont2: {
+      es: 'Instrucciones obvias ("escribe código limpio")',
+      en: 'Obvious instructions ("write clean code")',
+    },
+    dont3: {
+      es: "Reglas contradictorias",
+      en: "Contradictory rules",
+    },
+    tipsTitle: { es: "Tips", en: "Tips" },
+    tip1: {
+      es: "Máximo 500 líneas, instrucciones precisas",
+      en: "Keep under 500 lines, be precise",
+    },
+    tip2: {
+      es: "Modulares: dividir por concern",
+      en: "Modular: split by concern",
+    },
+    tip3: {
+      es: "Usar few-shot examples",
+      en: "Use few-shot examples",
+    },
+    tip4: {
+      es: "Carga condicional, no todo always-on",
+      en: "Conditional loading, not everything always-on",
     },
   },
 
-  // Slide 8: Best Practices & Tools
-  bestPractices: {
-    title: { es: "Mejores Prácticas", en: "Best Practices" },
-    practice1: {
-      es: "Empezar mínimo → iterar sobre fallos",
-      en: "Start minimal → iterate on failures",
+  // Slide 9: MCP Servers
+  mcpServers: {
+    title: { es: "MCP Servers", en: "MCP Servers" },
+    subtitle: {
+      es: "Plugins que extienden las capacidades del agente más allá de leer y escribir archivos. Conectan al agente con el conocimiento de tu organización.",
+      en: "Plugins that extend the agent's capabilities beyond reading and writing files. They bridge the gap between the agent and your organization's knowledge.",
     },
-    practice2: {
-      es: "Usar markdown para reglas/skills/specs",
-      en: "Use markdown for rules/skills/specs",
+    cap1: {
+      es: "Consultar tu base de datos para entender esquema y datos",
+      en: "Query your database to understand schema and data",
     },
-    practice3: {
-      es: "Lazy-load + comprimir agresivamente",
-      en: "Lazy-load + compress aggressively",
+    cap2: {
+      es: "Buscar en documentación interna o wiki",
+      en: "Search your internal documentation or wiki",
     },
-    practice4: {
-      es: "Aislar contextos (sub-agentes, entornos)",
-      en: "Isolate contexts (sub-agents, environments)",
+    cap3: {
+      es: "Consultar contratos de APIs internas",
+      en: "Look up internal API contracts",
     },
-    practice5: {
-      es: 'Hacer el codebase "AI-friendly" (estructura clara)',
-      en: 'Make codebase "AI-friendly" (clear structure)',
+    cap4: {
+      es: "Interactuar con tu pipeline de CI/CD",
+      en: "Interact with your CI/CD pipeline",
     },
-    toolsTitle: { es: "Herramientas", en: "Tools" },
-    tool1: { es: "Servidores MCP", en: "MCP servers" },
-    tool2: { es: "Skills", en: "Skills" },
-    tool3: { es: "Memoria agéntica", en: "Agentic memory" },
-    tool4: { es: "Middleware de resumen", en: "Summarization middleware" },
-  },
-
-  // Slide 9: Benefits & Challenges
-  benefitsChallenges: {
-    title: { es: "Beneficios y Desafíos", en: "Benefits & Challenges" },
-    benefitsTitle: { es: "Beneficios", en: "Benefits" },
-    benefit1: {
-      es: "60-80% más confiable en tareas multi-step",
-      en: "60-80% more reliable multi-step tasks",
+    cap5: {
+      es: "Acceder a specs de diseño en Figma",
+      en: "Access design specs from Figma",
     },
-    benefit2: {
-      es: "Menor costo y latencia (86% reportado en algunos casos)",
-      en: "Lower cost & latency (86% reported in some cases)",
+    cap6: {
+      es: "Testear la implementación real",
+      en: "Test the actual implementation",
     },
-    benefit3: {
-      es: "Agentes que realmente mejoran con el tiempo",
-      en: "Agents that actually improve over time",
-    },
-    challengesTitle: { es: "Desafíos", en: "Challenges" },
-    challenge1: {
-      es: "La degradación del contexto sigue siendo posible",
-      en: "Context rot still possible",
-    },
-    challenge2: {
-      es: "El no-determinismo requiere supervisión humana",
-      en: "Non-determinism requires human oversight",
-    },
-    challenge3: {
-      es: "Compartir contexto entre equipos/entornos",
-      en: "Sharing context across teams/environments",
+    insight: {
+      es: "Sin MCPs, el agente está limitado a lo que hay en el repo. Con ellos, accede a los mismos recursos que un dev humano.",
+      en: "Without MCPs, the agent is limited to what's in the repo. With them, it can access the same resources a human developer would.",
     },
   },
 
-  // Slide 10: How to Get Started
-  getStarted: {
-    title: { es: "Cómo Empezar Hoy", en: "How to Start Today" },
-    step1: {
-      es: "Agrega un CLAUDE.md o archivo de reglas a tu proyecto",
-      en: "Add a CLAUDE.md or rules file to your project",
+  // Slide 10: Skills
+  skills: {
+    title: { es: "Skills", en: "Skills" },
+    subtitle: {
+      es: "La palanca más poderosa del harness. Combinan inyección de contexto con lógica ejecutable. Se cargan on-demand para no consumir tu presupuesto de contexto.",
+      en: "The most powerful lever in the harness. They combine context injection with executable logic. Loaded on-demand so they don't consume your context budget.",
     },
-    step2: {
-      es: "Experimenta con skills y herramientas just-in-time",
-      en: "Experiment with skills & just-in-time tools",
+    feat1Title: {
+      es: "Carga on-demand",
+      en: "On-demand loading",
     },
-    step3: {
-      es: "Implementa una estrategia de compactación o memory notes",
-      en: "Implement one compaction or memory note strategy",
+    feat1Desc: {
+      es: "Solo una descripción corta en contexto; el contenido completo se inyecta al invocar",
+      en: "Only a short description stays in context; full content injected when invoked",
     },
-    step4: {
-      es: "Mide la tasa de éxito del loop antes/después",
-      en: "Measure loop success rate before/after",
+    feat2Title: {
+      es: "Dos sabores",
+      en: "Two flavors",
     },
-    future: {
-      es: "Futuro: Context engineering = el full-stack de los agentes de IA",
-      en: "Future: Context engineering = the full-stack of AI agents",
+    feat2Desc: {
+      es: "Reference skills (conocimiento) y task skills (instrucciones paso a paso)",
+      en: "Reference skills (knowledge) and task skills (step-by-step instructions)",
     },
-    questions: { es: "¿Preguntas?", en: "Questions?" },
+    feat3Title: {
+      es: "Scripts ejecutables",
+      en: "Executable scripts",
+    },
+    feat3Desc: {
+      es: "Pueden empaquetar y ejecutar scripts, haciendo la extensibilidad infinita",
+      en: "Can bundle and execute scripts, making extensibility essentially infinite",
+    },
+    feat4Title: {
+      es: "Sub-agentes aislados",
+      en: "Isolated sub-agents",
+    },
+    feat4Desc: {
+      es: "Se ejecutan con su propia ventana de contexto limpia",
+      en: "Run in isolated sub-agents with their own clean context window",
+    },
+    insight: {
+      es: "Skills son unidades programables, context-aware y componibles de comportamiento del agente.",
+      en: "Skills are programmable, context-aware, composable units of agent behavior.",
+    },
+  },
+
+  // Slide 11: Spec Driven Development
+  specDrivenDev: {
+    title: {
+      es: "Spec Driven Development",
+      en: "Spec Driven Development",
+    },
+    subtitle: {
+      es: "Uno de los mayores cuellos de botella con los coding agents está entre la silla y la pantalla: tú. El input inicial vago fuerza al agente a predecir la implementación correcta.",
+      en: "One of the top bottlenecks with coding agents sits between the chair and the screen: you. Vague initial input forces the agent to predict the correct implementation.",
+    },
+    problemTitle: { es: "El problema", en: "The problem" },
+    badPrompt: {
+      es: '"Haz una feature para agregar items desde el backoffice"',
+      en: '"Make a new feature to add new items from the backoffice"',
+    },
+    problemDesc: {
+      es: "No especifica stack, ubicación del backoffice, contratos de API, dónde almacenar, idempotencia, roles de acceso...",
+      en: "Doesn't specify stack, backoffice location, API contracts, storage, idempotency, access roles...",
+    },
+    specTitle: { es: "El spec incluye", en: "A spec includes" },
+    spec1: {
+      es: "Qué hace la feature",
+      en: "What the feature does",
+    },
+    spec2: {
+      es: "Cómo se integra con código existente",
+      en: "How it integrates with existing code",
+    },
+    spec3: {
+      es: "Cuáles son los edge cases",
+      en: "What the edge cases are",
+    },
+    spec4: {
+      es: "Criterios de aceptación",
+      en: "Acceptance criteria",
+    },
+    spec5: {
+      es: "Plan de testing",
+      en: "Test plan",
+    },
+    insight: {
+      es: "El spec se convierte en el harness. Consolida custom rules, guía paso a paso y criterios de aceptación en un solo artefacto. Y puedes usar el agente para escribir los specs.",
+      en: "The spec becomes the harness. It consolidates custom rules, step-by-step guidance, and acceptance criteria into a single artifact. And you can use the agent to write the specs too.",
+    },
+  },
+
+  // Slide 12: Questions
+  questions: {
+    title: { es: "¿Preguntas?", en: "Questions?" },
   },
 } as const;
 

@@ -19,10 +19,12 @@ import { WhyFailSlide } from "./slides/why-fail";
 import { PromptToCESlide } from "./slides/prompt-to-ce";
 import { WhatIsCESlide } from "./slides/what-is-ce";
 import { CoreTechniquesSlide } from "./slides/core-techniques";
-import { CodingAgentsSlide } from "./slides/coding-agents";
-import { BestPracticesSlide } from "./slides/best-practices";
-import { BenefitsChallengesSlide } from "./slides/benefits-challenges";
-import { GetStartedSlide } from "./slides/get-started";
+import { AgentHarnessSlide } from "./slides/agent-harness";
+import { CustomRulesSlide } from "./slides/custom-rules";
+import { McpServersSlide } from "./slides/mcp-servers";
+import { SkillsSlide } from "./slides/skills";
+import { SpecDrivenDevSlide } from "./slides/spec-driven-dev";
+import { QuestionsSlide } from "./slides/questions";
 
 const slides: React.ComponentType[] = [
   OpeningSlide,
@@ -34,10 +36,12 @@ const slides: React.ComponentType[] = [
   PromptToCESlide,
   WhatIsCESlide,
   CoreTechniquesSlide,
-  CodingAgentsSlide,
-  BestPracticesSlide,
-  BenefitsChallengesSlide,
-  GetStartedSlide,
+  AgentHarnessSlide,
+  CustomRulesSlide,
+  McpServersSlide,
+  SkillsSlide,
+  SpecDrivenDevSlide,
+  QuestionsSlide,
 ];
 
 // ---------------------------------------------------------------------------
