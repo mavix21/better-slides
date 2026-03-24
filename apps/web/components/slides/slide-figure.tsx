@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@workspace/ui/lib/utils";
+import Image from "next/image";
 
 // ---------------------------------------------------------------------------
 // FigureSlide.Root
@@ -14,7 +15,7 @@ function FigureSlideRoot({ children, className }: FigureSlideRootProps) {
   return (
     <div
       className={cn(
-        "flex h-full flex-col items-center justify-center px-8 py-12 md:px-16",
+        "flex h-full flex-col items-center justify-center px-6 py-10 md:px-14",
         className
       )}
     >
@@ -57,14 +58,13 @@ interface FigureSlideImageProps {
 
 function FigureSlideImage({ src, alt, className }: FigureSlideImageProps) {
   return (
-    <figure className="@container flex w-full flex-col items-center">
-      <img
+    <figure className="relative w-full flex-1">
+      <Image
         src={src}
         alt={alt}
-        className={cn(
-          "max-h-[32vh] w-auto max-w-full rounded-sm object-contain @sm:max-h-[38vh] @md:max-h-[44vh] @lg:max-h-[50vh]",
-          className
-        )}
+        fill
+        sizes="(max-width: 768px) 90vw, 70vw"
+        className={cn("rounded-sm object-contain", className)}
       />
     </figure>
   );
