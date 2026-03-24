@@ -225,7 +225,7 @@ export const translations = {
     title: { es: "Beneficios y Desafíos", en: "Benefits & Challenges" },
     benefitsTitle: { es: "Beneficios", en: "Benefits" },
     benefit1: {
-      es: "60-80% más confiable en tareas multi-paso",
+      es: "60-80% más confiable en tareas multi-step",
       en: "60-80% more reliable multi-step tasks",
     },
     benefit2: {
