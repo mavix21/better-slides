@@ -28,6 +28,12 @@ function Bar({ children, className }: BarProps) {
     meta.scheduleHideNav();
   }, [meta]);
 
+  const handleTouchStart = React.useCallback(() => {
+    if (!meta.shouldAutoHideNav) return;
+    meta.clearHideNavTimeout();
+    meta.setIsNavVisible((v) => !v);
+  }, [meta]);
+
   return (
     <div
       className={cn(
@@ -36,13 +42,14 @@ function Bar({ children, className }: BarProps) {
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
     >
       <div
         className={cn(
           "flex flex-col items-center gap-3 transition-opacity duration-200",
           meta.shouldAutoHideNav &&
             !meta.isNavVisible &&
-            "pointer-events-none opacity-0"
+            "pointer-events-none opacity-0 max-md:pointer-events-auto max-md:opacity-100"
         )}
       >
         {children}
@@ -63,15 +70,15 @@ function Dots({ className }: DotsProps) {
   const { state, actions } = useSlideDeck();
 
   return (
-    <div className={cn("hidden items-center gap-2 md:flex", className)}>
+    <div className={cn("flex items-center gap-1.5 md:gap-2", className)}>
       {Array.from({ length: state.totalSlides }).map((_, i) => (
         <button
           key={i}
           onClick={() => actions.goToSlide(i)}
           className={cn(
-            "h-2 w-2 rounded-full transition-all",
+            "h-1.5 w-1.5 rounded-full transition-all md:h-2 md:w-2",
             i === state.currentSlide
-              ? "w-6 bg-foreground"
+              ? "w-4 bg-foreground md:w-6"
               : "bg-foreground/30 hover:bg-foreground/50"
           )}
           aria-label={`Go to slide ${i + 1}`}
@@ -141,7 +148,12 @@ function Counter({ className, variant = "desktop" }: CounterProps) {
 
   if (variant === "mobile") {
     return (
-      <div className={cn("font-mono text-xs text-muted-foreground md:hidden", className)}>
+      <div
+        className={cn(
+          "font-mono text-xs text-muted-foreground md:hidden",
+          className
+        )}
+      >
         {label}
       </div>
     );
@@ -168,7 +180,10 @@ interface KeyboardHintProps {
   label?: string;
 }
 
-function KeyboardHint({ className, label = "← → to navigate" }: KeyboardHintProps) {
+function KeyboardHint({
+  className,
+  label = "← → to navigate",
+}: KeyboardHintProps) {
   const { state } = useSlideDeck();
   if (state.mode !== "present") return null;
 

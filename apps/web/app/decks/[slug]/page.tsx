@@ -56,8 +56,8 @@ export default async function DeckPage({
           </div>
         </div>
 
-        <div className="rounded-[32px] border border-border/80 bg-muted/30 p-3 shadow-sm md:p-4">
-          <div className="aspect-video w-full overflow-hidden rounded-[24px] border border-border bg-black">
+        <div className="rounded-2xl border border-border/80 bg-muted/30 p-2 shadow-sm md:rounded-[32px] md:p-4">
+          <div className="aspect-3/4 w-full overflow-hidden rounded-xl border border-border bg-black sm:aspect-4/3 md:aspect-video md:rounded-[24px]">
             <DeckRenderer slug={deck.slug} mode="preview" />
           </div>
         </div>
